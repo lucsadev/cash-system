@@ -1,1 +1,2 @@
-export * from './itemTab';
+export * from './itemsPaymentMethods';
+export * from './itemsTab';

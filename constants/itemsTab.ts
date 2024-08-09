@@ -2,21 +2,25 @@ export const itemsTab = [
   {
     name: "index",
     title: "Ventas",
-    icon: "home",
+    icon: "alarm-panel",
+    headerShown: true,
   },
   {
     name: "list-sales",
     title: "Lista de Ventas",
     icon: "format-list-bulleted",
+    headerShown: true,
   },
   {
     name: "purchasing-suppliers",
-    title: "Proveedores",
-    icon: "account-cash-outline",
+    title: "Pago proveedores",
+    icon: "account-cash",
+    headerShown: true
   },
   {
     name: "administration",
     title: "Administración",
-    icon: "account-cash-outline",
+    icon: "view-grid-outline",
+    headerShown: true
   },
 ];

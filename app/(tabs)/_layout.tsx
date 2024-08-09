@@ -1,8 +1,8 @@
-import { Tabs } from "expo-router";
+import { Slot, Tabs } from "expo-router";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { itemsTab } from "@/constants";
 
-export default function TabLayout() {
+export default function TabRootLayout() {
   return (
     <Tabs
       screenOptions={{
@@ -21,13 +21,13 @@ export default function TabLayout() {
           name={item.name}
           options={{
             title: item.title,
+            headerShown: item.headerShown,
             tabBarIcon: ({ color }) => (
               <Icon name={item.icon as any} size={24} color={color} />
             ),
           }}
         />
-      ))}
+      ))}      
     </Tabs>
   );
 }
-

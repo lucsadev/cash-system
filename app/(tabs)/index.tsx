@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import React from "react";
+import { Text, View } from "react-native";
 
-export default function TabIndex() {
+export default function TabSales() {
   return (
     <View>
-      <Text>TabIndex</Text>
+      <Text>Ventas</Text>
     </View>
-  )
+  );
 }
