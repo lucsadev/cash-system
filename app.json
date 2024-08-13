@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "cash-system",
-    "slug": "cash-system",
-    "scheme": "cashSystem",
+    "name": "cash-system-app",
+    "slug": "cash-system-app",
+    "scheme": "cash-system",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-       "bundler": "metro"
+      "bundler": "metro"      
     },
     "plugins": [
       "expo-router"

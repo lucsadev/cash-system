@@ -1,12 +1,16 @@
-export const CASH = 'Efectivo'
-export const OTHERS = 'Otros'
-export const CUENTA_DNI = 'Cuenta DNI'
-export const DEBIT = 'Débito'
-export const CREDIT = 'Crédito'
-export const MERCADO_PAGO = 'Mercado Pago'
-export const TRANSFER = 'Transferencia'
-export const MODO = 'MODO'
 export const BG_COLOR = '#004d70'
+
+export enum PaymentMethods {
+  CASH = 'Efectivo',
+  OTHERS = 'Otros',
+  CUENTA_DNI = 'Cuenta DNI',
+  DEBIT = 'Débito',
+  CREDIT = 'Tarjeta de Crédito',
+  MERCADO_PAGO = 'Mercado Pago',
+  TRANSFER = 'Transferencia',
+  MODO = 'MODO',
+  CHANGE_IN_BOX = 'Ingresar cambio en caja',
+}
 
 const cash =
   'https://fnrggtvnecuajkfgookn.supabase.co/storage/v1/object/public/images/money.android.png'
@@ -24,31 +28,31 @@ const modo = 'https://fnrggtvnecuajkfgookn.supabase.co/storage/v1/object/public/
 
 export const itemsPaymentMethods = [
   {
-    name: CASH,
+    name: PaymentMethods.CASH,
     icon: cash,
   },
   {
-    name: CUENTA_DNI,
+    name: PaymentMethods.CUENTA_DNI,
     icon: dni,
   },
   {
-    name: DEBIT,
+    name: PaymentMethods.DEBIT,
     icon: debit,
   },
   {
-    name: CREDIT,
+    name: PaymentMethods.CREDIT,
     icon: credit,
   },
   {
-    name: MERCADO_PAGO,
+    name: PaymentMethods.MERCADO_PAGO,
     icon: mp,
   },
   {
-    name: TRANSFER,
+    name: PaymentMethods.TRANSFER,
     icon: transfer,
   },
   {
-    name: MODO,
+    name: PaymentMethods.MODO,
     icon: modo,
   },
 ]
