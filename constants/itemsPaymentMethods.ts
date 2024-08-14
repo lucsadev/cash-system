@@ -56,3 +56,14 @@ export const itemsPaymentMethods = [
     icon: modo,
   },
 ]
+
+export const typeOfPayment = {
+  [PaymentMethods.CASH]: cash,
+  [PaymentMethods.OTHERS]: dni,
+  [PaymentMethods.CUENTA_DNI]: dni,
+  [PaymentMethods.DEBIT]: debit,
+  [PaymentMethods.CREDIT]: credit,
+  [PaymentMethods.MERCADO_PAGO]: mp,
+  [PaymentMethods.TRANSFER]: transfer,
+  [PaymentMethods.MODO]: modo,
+}

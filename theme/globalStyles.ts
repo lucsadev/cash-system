@@ -53,4 +53,9 @@ export const globalStyles = StyleSheet.create({
       letterSpacing: 0.3,
       textAlign: "center",
     },
+    divider : {
+        width: "100%",
+        height: 1,
+        backgroundColor: "#000",        
+    }
   });

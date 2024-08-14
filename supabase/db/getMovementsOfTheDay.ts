@@ -1,5 +1,5 @@
 import { supabase } from "..";
-import type { MovementsOfTheDayType } from "../../types/db";
+import type { MovementsOfTheDayType, SalesType } from "../../types/db";
 
 export const getMovementsOfTheDay = async (date: string) => {
   const { data } = await supabase
@@ -8,13 +8,21 @@ export const getMovementsOfTheDay = async (date: string) => {
     .eq("date", date)
     .single();
 
-  const {id ,cashChange} = !!data
-    ? data as MovementsOfTheDayType
-    : await supabase
+  const { id: dayId, cashChange } = !!data
+    ? (data as MovementsOfTheDayType)
+    : ((await supabase
         .from("movementsOfTheDay")
-        .insert([{date}])
+        .insert([{ date }])
         .select("id,cashChange")
-        .single().then((res) => res.data) as MovementsOfTheDayType;
+        .single()
+        .then((res) => res.data)) as MovementsOfTheDayType);
 
- 
+  const sales = (await supabase
+    .from("sales")
+    .select("id,amount,created_at,typeOfPayment,profiles(username)")
+    .eq("day", dayId)
+    .order("created_at", { ascending: false })
+    .then((res) => res.data)) as SalesType[];
+
+  return { dayId, cashChange, sales };
 };

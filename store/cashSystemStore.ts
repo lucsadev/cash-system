@@ -5,25 +5,24 @@ import { PaymentMethods } from "../constants";
 import type { SalesType } from "../types/db";
 
 interface IDay {
-  dayId: string | null;
-  cashAvailable: 0;
-  cashChange: 0;
+  dayId: string;
+  cashChange: number;
   sales: SalesType[];
 }
 
 interface State extends IDay {
   today: string;
+  cashAvailable: 0;
   CurrentPaymentMethods: PaymentMethods;
 }
 
 interface Actions {
   setCurrentPaymentMethods: (CurrentPaymentMethods: PaymentMethods) => void;
-  loadMovementsOfTheDay: () => void;
-  setDay: (dataDay: IDay) => void;
+  setMovementsOfTheDay: (dataDay: IDay) => void;
 }
 
 const INITIAL_STATE: State = {
-  dayId: null,
+  dayId: '',
   cashAvailable: 0,
   cashChange: 0,
   sales: [],
@@ -43,9 +42,7 @@ const cashSystemStoreBase = create<State & Actions>()((set, get) => ({
   setCurrentPaymentMethods: (CurrentPaymentMethods: PaymentMethods) =>
     set({ CurrentPaymentMethods }),
 
-  loadMovementsOfTheDay: () => {},
-
-  setDay: (dataDay: IDay) => set({ ...dataDay }),
+  setMovementsOfTheDay: (dataDay: IDay) => set({ ...dataDay }),
 }));
 
 export const useCashSystemStore = createSelectors(cashSystemStoreBase);

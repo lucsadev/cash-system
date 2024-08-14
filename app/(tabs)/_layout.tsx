@@ -3,22 +3,80 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { itemsTab, PaymentMethods } from "../../constants";
 import { useCashSystemStore } from "../../store";
 import { supabase } from "../../supabase";
-import { BackHandler } from "react-native";
+import { Alert, BackHandler } from "react-native";
+import { useEffect } from "react";
+import { getMovementsOfTheDay } from "../../supabase/db";
 
 const today = new Date();
 
 export default function TabRootLayout() {
   const pathname = usePathname();
+  const today = useCashSystemStore.use.today();
+  const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
   const setCurrentPaymentMethods =
     useCashSystemStore.use.setCurrentPaymentMethods();
 
+  useEffect(() => {
+    const channel = supabase
+      .channel("db-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "sales",
+        },
+        () =>
+          getMovementsOfTheDay(today).then(setMovementsOfTheDay).catch((error) =>
+            Alert.alert("Error", error?.message || error, [{ text: "Aceptar" }])
+          )
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "movementsOfTheDay",
+        },
+        () =>
+          getMovementsOfTheDay(today).then(setMovementsOfTheDay).catch((error) =>
+            Alert.alert("Error", error?.message || error, [{ text: "Aceptar" }])
+          )
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "purchases",
+        },
+        () =>
+          getMovementsOfTheDay(today).then(setMovementsOfTheDay).catch((error) =>
+            Alert.alert("Error", error?.message || error, [{ text: "Aceptar" }])
+          )
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "cashWithdrawals",
+        },
+        () =>
+          getMovementsOfTheDay(today).then(setMovementsOfTheDay).catch((error) =>
+            Alert.alert("Error", error?.message || error, [{ text: "Aceptar" }])
+          )
+      )
+      .subscribe();
+  
+  }, [today]);
 
   const iconLeft = pathname === "/" ? "cash-register" : "";
   const iconRight = pathname === "/" ? "exit-run" : "";
   return (
     <Tabs
       screenOptions={{
-        title: today.toLocaleDateString("es-AR", {
+        title: new Date(today).toLocaleDateString("es-AR", {
           day: "numeric",
           month: "long",
           year: "numeric",

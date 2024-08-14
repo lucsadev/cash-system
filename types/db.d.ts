@@ -1,10 +1,17 @@
 import { Tables } from "./database.types";
 
-let profile: Tables<'profiles'>;
-export type ProfileType = Omit<typeof profile, 'id'>;
+let profile: Tables<"profiles">;
+export type ProfileType = Omit<typeof profile, "id">;
 
-let sales: Tables<'sales'>;
-export type SalesType = Omit<typeof sales, 'day' | 'isCombo'>;
+export type SalesType = {
+  amount: number | null;
+  created_at: string | null;
+  id: string;
+  typeOfPayment: string | null;
+  profiles: {
+    username: string | null;
+  };
+};
 
-let movementsOfTheDay: Tables<'movementsOfTheDay'>;
-export type MovementsOfTheDayType = Omit<typeof movementsOfTheDay, 'date'>;
+let movementsOfTheDay: Tables<"movementsOfTheDay">;
+export type MovementsOfTheDayType = Omit<typeof movementsOfTheDay, "date">;

@@ -13,6 +13,7 @@ export default function SalesAmountPage() {
   const setSession = useAuthStore.use.setSession();
   const setProfile = useAuthStore.use.setProfile();
   const today = useCashSystemStore.use.today();
+  const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
 
   
   const login = ( { userName, password }: { userName: string; password: string }) => 
@@ -21,7 +22,7 @@ export default function SalesAmountPage() {
         .then(({ data: { session, user } }) => {
           setSession(session);
           setProfile(user?.user_metadata as ProfileType);
-          getMovementsOfTheDay(today)
+          getMovementsOfTheDay(today).then(setMovementsOfTheDay)
           router.push("/(tabs)");
         });
 
