@@ -27,7 +27,7 @@ const handleDelete = (sale: string) => {
   }
 };
 
-export const ItemSale = ({ item /* , role */ }: { item: SalesType }) => {
+export const ItemSale = ({ item , role }: { item: SalesType, role: string }) => {
   return (
     <View style={styles.container}>
     <View style={{width: '18%', alignItems: 'center'}}>
@@ -40,7 +40,7 @@ export const ItemSale = ({ item /* , role */ }: { item: SalesType }) => {
         />
         </View>
       <Text style={{width: '18%', textAlign: 'center'}}>{item.profiles?.username}</Text>
-      <Text style={{width: '30%', textAlign: 'right'}}>{formatPrice(item.amount)}</Text>
+      <Text style={{width: '30%', textAlign: 'right'}}>{formatPrice(item.amount!)}</Text>
       <Text style={{width: '18%', textAlign: 'center'}}>
         {new Date(item.created_at as string).toLocaleTimeString("es-AR", {
           hour: "2-digit",
@@ -48,9 +48,9 @@ export const ItemSale = ({ item /* , role */ }: { item: SalesType }) => {
           hour12: false,
         })}
       </Text>
-      {"ADMIN" === "ADMIN" && (
+      {role === "ADMIN" && (
         <TouchableOpacity onPress={() => handleDelete(item.id)} style={{width: '18%', alignItems: 'center'}}>
-          <Icon name="trash-can-outline" size={26} color='red' />
+          <Icon name="trash-can-outline" size={20} color='red' />
         </TouchableOpacity>
       )}
     </View>

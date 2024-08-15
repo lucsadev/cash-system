@@ -3,11 +3,8 @@ import { UserInputForm } from "../components";
 import { Text, TextInput } from "react-native-paper";
 import { supabase } from "../supabase";
 import { useAuthStore, useCashSystemStore } from "../store";
-import type{ ProfileType } from "../types/db";
 import { router } from "expo-router";
 import { getMovementsOfTheDay } from "../supabase/db";
-
-
 
 export default function SalesAmountPage() {
   const setSession = useAuthStore.use.setSession();
@@ -15,16 +12,26 @@ export default function SalesAmountPage() {
   const today = useCashSystemStore.use.today();
   const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
 
-  
-  const login = ( { userName, password }: { userName: string; password: string }) => 
+  const login = ({
+    userName,
+    password,
+  }: {
+    userName: string;
+    password: string;
+  }) =>
     supabase.auth
-        .signInWithPassword({ email:`${userName}@${userName}`, password })
-        .then(({ data: { session, user } }) => {
-          setSession(session);
-          setProfile(user?.user_metadata as ProfileType);
-          getMovementsOfTheDay(today).then(setMovementsOfTheDay)
-          router.push("/(tabs)");
-        });
+      .signInWithPassword({ email: `${userName}@${userName}`, password })
+      .then(({ data: { session, user } }) => {
+        setSession(session);
+        supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user?.id)
+          .single()
+          .then((res) => setProfile(res.data));
+        getMovementsOfTheDay(today).then(setMovementsOfTheDay);
+        router.push("/(tabs)");
+      });
 
   return (
     <View style={styles.container}>
@@ -49,4 +56,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-

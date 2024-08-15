@@ -1,5 +1,6 @@
 import { Stack } from "expo-router/stack";
 import { PaperProvider } from "react-native-paper";
+import { ToastProvider } from "react-native-toast-notifications";
 import { usePathname } from "expo-router";
 import { useEffect } from "react";
 import { supabase } from "../supabase";
@@ -22,7 +23,15 @@ export default function RootLayout() {
   }, []);
 
   return (
-      <PaperProvider theme={theme}>
+    <PaperProvider theme={theme}>
+      <ToastProvider
+        duration={1000}
+        textStyle={{ fontSize: 20, color: "#000" }}
+        successColor="#22c55eca"
+        dangerColor="#ef4444ca"
+        offsetBottom={60}
+        swipeEnabled={true}
+      >
         <Stack
           screenOptions={{
             headerShown: pathname !== "/sales-amount-screen" ? false : true,
@@ -33,6 +42,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="sales-amount-screen" />
         </Stack>
-      </PaperProvider>
+      </ToastProvider>
+    </PaperProvider>
   );
 }

@@ -7,7 +7,7 @@ export const itemsTab = [
   },
   {
     name: "list-sales",
-    title: "Lista de Ventas",
+    title: "Listado de Ventas",
     icon: "format-list-bulleted",
     headerShown: true,
   },

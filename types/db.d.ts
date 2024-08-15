@@ -1,7 +1,7 @@
 import { Tables } from "./database.types";
 
 let profile: Tables<"profiles">;
-export type ProfileType = Omit<typeof profile, "id">;
+export type ProfileType = typeof profile;
 
 export type SalesType = {
   amount: number | null;
