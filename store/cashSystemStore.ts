@@ -2,17 +2,23 @@ import { create } from "zustand";
 
 import { createSelectors } from "./createSelectors";
 import { PaymentMethods } from "../constants";
-import type { SalesType } from "../types/db";
+import type {
+  CashWithdrawalsType,
+  PurchasesType,
+  SalesType,
+} from "../types/db";
 
 interface IDay {
   dayId: string;
   cashChange: number;
+  cashAvailable: number;
   sales: SalesType[];
+  purchases: PurchasesType[];
+  cashWithdrawals: CashWithdrawalsType[];
 }
 
 interface State extends IDay {
   today: string;
-  cashAvailable: 0;
   CurrentPaymentMethods: PaymentMethods;
 }
 
@@ -22,10 +28,12 @@ interface Actions {
 }
 
 const INITIAL_STATE: State = {
-  dayId: '',
+  dayId: "",
   cashAvailable: 0,
   cashChange: 0,
   sales: [],
+  purchases: [],
+  cashWithdrawals: [],
   today: new Date()
     .toLocaleDateString("es-AR", {
       day: "2-digit",

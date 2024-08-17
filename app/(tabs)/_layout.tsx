@@ -3,12 +3,10 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { itemsTab, PaymentMethods } from "../../constants";
 import { useCashSystemStore } from "../../store";
 import { supabase } from "../../supabase";
-import { Alert, BackHandler, StyleSheet, Text, View } from "react-native";
+import { Alert, BackHandler } from "react-native";
 import { useEffect } from "react";
 import { getMovementsOfTheDay } from "../../supabase/db";
-import { formatLongDate } from "../../lib";
-
-const today = new Date();
+import { HeaderTitle } from "../../components";
 
 export default function TabRootLayout() {
   const pathname = usePathname();
@@ -88,8 +86,38 @@ export default function TabRootLayout() {
       .subscribe();
   }, [today]);
 
-  const iconLeft = pathname === "/" ? "cash-register" : "";
-  const iconRight = pathname === "/" ? "exit-run" : "";
+  const onPressLeftIcon = () => {
+    setCurrentPaymentMethods(PaymentMethods.CHANGE_IN_BOX);
+    router.navigate("/salesAmountScreen");
+  };
+
+  const onPressRightIcon = () => {
+    if (pathname === "/") {
+      supabase.auth.signOut();
+      BackHandler.exitApp();
+    }
+  };
+
+  const iconLeft = () => (
+    <Icon
+      name={pathname === "/" ? "cash-register" : ("" as any)}
+      size={32}
+      color="black"
+      style={{ marginLeft: 10 }}
+      onPress={onPressLeftIcon}
+    />
+  );
+
+  const iconRight = () => (
+    <Icon
+      name={pathname === "/" ? "exit-run" : ("" as any)}
+      size={32}
+      color="#b30000ce"
+      style={{ marginRight: 10 }}
+      onPress={onPressRightIcon}
+    />
+  );
+
   return (
     <Tabs
       screenOptions={{
@@ -105,99 +133,23 @@ export default function TabRootLayout() {
           key={item.name}
           name={item.name}
           options={{
-            headerTitle: () => (
-              <View style={styles.titleContainer}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.subtitle}>
-                  {formatLongDate(today)}
-                </Text>
-              </View>
-            ),
+            headerShown: item.headerShown,
+            headerTitle: () => <HeaderTitle title={item.title} />,
             headerTitleAlign: "center",
             tabBarLabel: item.title,
             tabBarIcon: ({ color }) => (
               <Icon name={item.icon as any} size={24} color={color} />
             ),
-            tabBarBadge: item.name === "list-sales" ? sales?.length : undefined,
+            tabBarBadge:
+              item.name === "listSales" && sales?.length
+                ? sales?.length
+                : undefined,
             tabBarBadgeStyle: { backgroundColor: "#ef4444cc" },
-            headerLeft: () => (
-              <Icon
-                name={iconLeft as any}
-                size={32}
-                color="black"
-                style={{ marginLeft: 10 }}
-                onPress={() => {
-                  setCurrentPaymentMethods(PaymentMethods.CHANGE_IN_BOX);
-                  router.navigate("/sales-amount-screen");
-                }}
-              />
-            ),
-            headerRight: () => (
-              <Icon
-                name={iconRight as any}
-                size={32}
-                color="#b30000ce"
-                style={{ marginRight: 10 }}
-                onPress={() => {
-                  supabase.auth.signOut();
-                  BackHandler.exitApp();
-                }}
-              />
-            ),
+            headerLeft: iconLeft,
+            headerRight: iconRight,
           }}
         />
       ))}
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "teal",
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: "normal",
-    marginBottom: 5,
-  }
-})
-
-/* 
- title: new Date(today).toLocaleDateString("es-AR", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
-        headerTitleAlign: "center",
-        headerLeft: () => (
-          <Icon
-            name={iconLeft as any}
-            size={32}
-            color="black"
-            style={{ marginLeft: 10 }}
-            onPress={() => {
-              setCurrentPaymentMethods(PaymentMethods.CHANGE_IN_BOX);
-              router.navigate("/sales-amount-screen");
-            }}
-          />
-        ),
-        headerRight: () => (
-          <Icon
-            name={iconRight as any}
-            size={32}
-            color="#b30000ce"
-            style={{ marginRight: 10 }}
-            onPress={() => {
-              supabase.auth.signOut();
-              BackHandler.exitApp();
-            }}
-          />
-        ),
-
-*/

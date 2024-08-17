@@ -7,6 +7,16 @@ import { Pressable, Text, View } from "react-native";
 import { globalStyles } from "../theme/globalStyles";
 import { supabase } from "../supabase";
 import { useToast } from "react-native-toast-notifications";
+import { HeaderTitle } from "../components";
+
+const {
+  button,
+  buttonContainer,
+  displayText,
+  displayContainer,
+  pageContainer,
+  text,
+} = globalStyles;
 
 export default function SalesAmountPage() {
   const [amount, setAmount] = useState("");
@@ -18,25 +28,22 @@ export default function SalesAmountPage() {
   const navigation = useNavigation();
   const toast = useToast();
 
-  const {
-    button,
-    buttonContainer,
-    displayText,
-    displayContainer,
-    pageContainer,
-    text,
-  } = globalStyles;
 
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text>
-          {`${
+        <HeaderTitle
+          title={
             CurrentPaymentMethods !== PaymentMethods.CHANGE_IN_BOX
               ? "Forma de pago:"
+              : CurrentPaymentMethods
+          }
+          subtitle={
+            CurrentPaymentMethods !== PaymentMethods.CHANGE_IN_BOX
+              ? CurrentPaymentMethods
               : ""
-          } ${CurrentPaymentMethods}`}
-        </Text>
+          }
+        />
       ),
     });
   }, [CurrentPaymentMethods]);
@@ -52,12 +59,15 @@ export default function SalesAmountPage() {
   };
 
   const handleSave = async () => {
+    if (!userId || !amount || !dayId) return;
     try {
       if (CurrentPaymentMethods === PaymentMethods.CHANGE_IN_BOX) {
+        const cashChange = Number(amount);
         const { error } = await supabase
           .from("movementsOfTheDay")
-          .update({ cashChange: amount })
+          .update({ cashChange })
           .eq("id", dayId);
+
 
         if (error) throw error;
 
@@ -66,7 +76,6 @@ export default function SalesAmountPage() {
         return;
       }
 
-      if (!userId && !amount && !dayId) return;
 
       const { error } = await supabase
         .from("sales")

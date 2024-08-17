@@ -19,12 +19,12 @@ export const itemsMenuAdmin = [
   {
     name: 'Resumen del día',
     image: dailySummary,
-    page: 'dailySummary',
+    page: 'dailySummaryScreen',
   },
   {
     name: 'Resumen mensual',
     image: monthlySummary,
-    page: 'monthlySummary',
+    page: 'monthlySummaryScreen',
   },
   {
     name: 'Administración de usuarios',
@@ -34,6 +34,6 @@ export const itemsMenuAdmin = [
   {
     name: 'Movimientos por día',
     image: calendar,
-    page: 'movementsPerDay',
+    page: 'movementsPerDayScreen',
   }
 ]

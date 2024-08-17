@@ -7,7 +7,7 @@ export default function TabSales() {
   const setCurrentPaymentMethods = useCashSystemStore.use.setCurrentPaymentMethods();
   const isAuthenticated = useAuthStore.use.isAuthenticated();
 
-  if (!isAuthenticated) return <Redirect href="/auth-screen" />;
+  if (!isAuthenticated) return <Redirect href="/authScreen" />;
  
   return (
     <View style={styles.container}>
@@ -16,7 +16,7 @@ export default function TabSales() {
           key={item.name}
           onPress={() => {
             setCurrentPaymentMethods(item.name)
-            router.navigate('/sales-amount-screen')
+            router.navigate('/salesAmountScreen')
           }}
           style={({pressed}) => [
             styles.card,

@@ -29,18 +29,19 @@ export default function RootLayout() {
         textStyle={{ fontSize: 20, color: "#000" }}
         successColor="#22c55eca"
         dangerColor="#ef4444ca"
+        normalColor="#0369a177"
         offsetBottom={60}
         swipeEnabled={true}
       >
         <Stack
           screenOptions={{
-            headerShown: pathname !== "/sales-amount-screen" ? false : true,
+            headerShown: pathname !== "/salesAmountScreen" ? false : true,
             headerTitleAlign: "center",
           }}
         >
-          <Stack.Screen name="auth-screen" />
+          <Stack.Screen name="authScreen" />
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="sales-amount-screen" />
+          <Stack.Screen name="salesAmountScreen" />
         </Stack>
       </ToastProvider>
     </PaperProvider>

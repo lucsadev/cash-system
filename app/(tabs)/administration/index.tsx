@@ -1,6 +1,7 @@
 import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { itemsMenuAdmin } from "../../../constants";
 import { useAuthStore } from "../../../store";
+import { router } from "expo-router";
 
 export default function TabAdministration() {
   const profile = useAuthStore.use.profile();
@@ -20,7 +21,7 @@ export default function TabAdministration() {
         return (
           <Pressable
             key={item.name}
-            onPress={() => {}}
+            onPress={() =>  router.navigate('/administration/' + item.page)}
             style={({ pressed }) => [
               styles.card,
               {

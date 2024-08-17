@@ -6,21 +6,21 @@ export const itemsTab = [
     headerShown: true,
   },
   {
-    name: "list-sales",
+    name: "listSales",
     title: "Listado de Ventas",
     icon: "format-list-bulleted",
     headerShown: true,
   },
   {
-    name: "purchasing-suppliers",
+    name: "paymentsToSuppliers",
     title: "Pago proveedores",
     icon: "account-cash",
-    headerShown: true
+    headerShown: false
   },
   {
     name: "administration",
     title: "Administración",
     icon: "view-grid-outline",
-    headerShown: true
+    headerShown: false
   },
 ];

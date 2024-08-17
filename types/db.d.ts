@@ -3,15 +3,24 @@ import { Tables } from "./database.types";
 let profile: Tables<"profiles">;
 export type ProfileType = typeof profile;
 
-export type SalesType = {
+
+export interface CashWithdrawalsType {
   amount: number | null;
   created_at: string | null;
+  description: string | null;
   id: string;
-  typeOfPayment: string | null;
   profiles: {
     username: string | null;
   };
 };
+
+export interface PurchasesType extends CashWithdrawalsType { 
+  typeOfPayment: string | null;  
+};
+
+interface sales extends PurchasesType {}
+export type SalesType = Omit<typeof sales,'description'>;
+
 
 let movementsOfTheDay: Tables<"movementsOfTheDay">;
 export type MovementsOfTheDayType = Omit<typeof movementsOfTheDay, "date">;
