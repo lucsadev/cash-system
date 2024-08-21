@@ -11,6 +11,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     overflow: "hidden",
+    elevation: 3,
   },
   title: {
     fontWeight: "bold",
@@ -18,6 +19,7 @@ export default StyleSheet.create({
     color: "#0e7490",
     textAlign: "center",
     marginBottom: 5,
+    textDecorationLine: 'underline'
   },
   containerRowSubTitle: {
     flexDirection: "row",

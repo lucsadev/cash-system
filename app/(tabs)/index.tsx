@@ -3,6 +3,7 @@ import { useAuthStore, useCashSystemStore } from "../../store";
 import { Redirect, router } from 'expo-router';
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+
 export default function TabSales() {
   const setCurrentPaymentMethods = useCashSystemStore.use.setCurrentPaymentMethods();
   const isAuthenticated = useAuthStore.use.isAuthenticated();

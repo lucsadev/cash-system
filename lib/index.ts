@@ -1,2 +1,2 @@
-export * from './formatLongDate';
+export * from './formatDate';
 export * from './formatPrice';

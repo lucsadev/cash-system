@@ -15,6 +15,7 @@ interface IDay {
   sales: SalesType[];
   purchases: PurchasesType[];
   cashWithdrawals: CashWithdrawalsType[];
+  users :string[]
 }
 
 interface State extends IDay {
@@ -34,6 +35,7 @@ const INITIAL_STATE: State = {
   sales: [],
   purchases: [],
   cashWithdrawals: [],
+  users :[],
   today: new Date()
     .toLocaleDateString("es-AR", {
       day: "2-digit",

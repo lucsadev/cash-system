@@ -83,6 +83,22 @@ export default function TabRootLayout() {
               ])
             )
       )
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "profiles",
+        },
+        () =>
+          getMovementsOfTheDay(today)
+            .then(setMovementsOfTheDay)
+            .catch((error) =>
+              Alert.alert("Error", error?.message || error, [
+                { text: "Aceptar" },
+              ])
+            )
+      )
       .subscribe();
   }, [today]);
 

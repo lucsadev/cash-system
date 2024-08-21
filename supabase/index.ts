@@ -13,10 +13,10 @@ export const supabase = createClient(process.env.EXPO_PUBLIC_SUPABASE_URL!, proc
   }, 
 })
 
-AppState.addEventListener('change', (state) => {
+/* AppState.addEventListener('change', (state) => {
   if (state === 'active') {
     supabase.auth.startAutoRefresh()
   } else {
     supabase.auth.stopAutoRefresh()
   }
-})
+}) */

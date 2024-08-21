@@ -12,7 +12,7 @@ export { ErrorBoundary } from "expo-router";
 
 export default function RootLayout() {
   const pathname = usePathname();
-  const setSession = useAuthStore.use.setSession();
+/*   const setSession = useAuthStore.use.setSession();
   const setProfile = useAuthStore.use.setProfile();
 
   useEffect(() => {
@@ -20,7 +20,8 @@ export default function RootLayout() {
       setSession(session);
       setProfile(session ? (session.user?.user_metadata as ProfileType) : null);
     });
-  }, []);
+  }, []); */
+
 
   return (
     <PaperProvider theme={theme}>

@@ -2,9 +2,11 @@ import { supabase } from "..";
 import type {
   CashWithdrawalsType,
   MovementsOfTheDayType,
+  ProfileType,
   PurchasesType,
   SalesType,
 } from "../../types/db";
+import { getUsers } from "./getUser";
 
 export const getMovementsOfTheDay = async (date: string) => {
   const { data } = await supabase
@@ -43,7 +45,6 @@ export const getMovementsOfTheDay = async (date: string) => {
     .order("created_at", { ascending: false })
     .then((res) => res.data)) as CashWithdrawalsType[];
 
-
   const cashAvailable = await supabase
     .from("cashAvailable")
     .select("amount")
@@ -51,5 +52,17 @@ export const getMovementsOfTheDay = async (date: string) => {
     .single()
     .then((res) => res.data?.amount || 0);
 
-  return { dayId, cashChange, sales, purchases, cashAvailable, cashWithdrawals };
+  const users = await getUsers().then((res) =>
+    res.map((user: ProfileType) => user.username)
+  );
+
+  return {
+    dayId,
+    cashChange,
+    sales,
+    purchases,
+    cashAvailable,
+    cashWithdrawals,
+    users,
+  };
 };

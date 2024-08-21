@@ -1,44 +1,15 @@
 import { StyleSheet, View } from "react-native";
 import { UserInputForm } from "../components";
 import { Text, TextInput } from "react-native-paper";
-import { supabase } from "../supabase";
-import { useAuthStore, useCashSystemStore } from "../store";
-import { router } from "expo-router";
-import { getMovementsOfTheDay } from "../supabase/db";
+
 
 export default function SalesAmountPage() {
-  const setSession = useAuthStore.use.setSession();
-  const setProfile = useAuthStore.use.setProfile();
-  const today = useCashSystemStore.use.today();
-  const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
-
-  const login = ({
-    userName,
-    password,
-  }: {
-    userName: string;
-    password: string;
-  }) =>
-    supabase.auth
-      .signInWithPassword({ email: `${userName}@${userName}`, password })
-      .then(({ data: { session, user } }) => {
-        setSession(session);
-        supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user?.id)
-          .single()
-          .then((res) => setProfile(res.data));
-        getMovementsOfTheDay(today).then(setMovementsOfTheDay);
-        router.push("/(tabs)");
-      });
-
   return (
     <View style={styles.container}>
       <Text variant="displaySmall" style={styles.title}>
         Iniciar sesión
       </Text>
-      <UserInputForm login={login} />
+      <UserInputForm isLogin/>
     </View>
   );
 }
