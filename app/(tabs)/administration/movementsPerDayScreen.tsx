@@ -12,13 +12,12 @@ import {
   SummaryOfTotals,
 } from "../../../components";
 import { useSummaryPerDay } from "../../../hooks";
-import { totals } from "../../../lib/totals";
 
 export default function MovementsPerDayScreen() {
   const [day, setDay] = useState(new Date().toLocaleDateString());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [userSelected, setUserSelected] = useState("Todos");
-  const users = useCashSystemStore.use.users();
+  const users = useCashSystemStore.use.users().map((user) => user.username);
   const { loading, sales, purchases } = useSummaryPerDay(formatShortDate(day));
   const dataUsers = [
     { label: "Todos", value: "Todos" },

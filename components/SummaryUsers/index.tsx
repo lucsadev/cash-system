@@ -34,7 +34,7 @@ export function SummaryUsers({ salesOfTheMonth }: Props) {
       setUsersSummary((prev) => ({
         ...prev,
         [user as any]: totals(
-          salesOfTheMonth.filter((el) => el.profiles.username === user)
+          salesOfTheMonth.filter((el) => el.profiles.username === user.username)
         ),
       }));
     });

@@ -12,3 +12,4 @@ export * from './SelectDropdown';
 export * from './SummaryOfTotals';
 export * from './SummaryUsers';
 export * from './UserInputForm';
+export * from './UsersList/UsersList';

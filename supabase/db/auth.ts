@@ -12,13 +12,13 @@ interface IDataRegister extends IDataLogin {
 export const login = ({ username, password }: IDataLogin) =>
   supabase.auth
     .signInWithPassword({ email: `${username}@${username}`, password })
-    .then(async ({ data: { session, user } }) => {
-      const { profile, error } = await supabase
+    .then(async ({ data: { session, user }, error }) => {
+      const profile =!error && await supabase
         .from("profiles")
         .select("*")
         .eq("id", user?.id)
         .single()
-        .then(({ data, error }) => ({ error, profile: data }));
+        .then(({ data }) => data);
       return { session, profile, error };
     });
 

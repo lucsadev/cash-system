@@ -2,10 +2,10 @@ import { Stack } from "expo-router/stack";
 import { PaperProvider } from "react-native-paper";
 import { ToastProvider } from "react-native-toast-notifications";
 import { usePathname } from "expo-router";
-import { useEffect } from "react";
+/* import { useEffect } from "react";
 import { supabase } from "../supabase";
 import { useAuthStore } from "../store";
-import type { ProfileType } from "../types/db";
+import type { ProfileType } from "../types/db"; */
 import { theme } from "../theme";
 
 export { ErrorBoundary } from "expo-router";
@@ -17,11 +17,13 @@ export default function RootLayout() {
 
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
+      console.log({event, session});
+      
       setSession(session);
       setProfile(session ? (session.user?.user_metadata as ProfileType) : null);
     });
-  }, []); */
-
+  }, []);
+ */
 
   return (
     <PaperProvider theme={theme}>

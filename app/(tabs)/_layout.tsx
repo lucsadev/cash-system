@@ -1,7 +1,7 @@
 import { router, Slot, Tabs, usePathname } from "expo-router";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { itemsTab, PaymentMethods } from "../../constants";
-import { useCashSystemStore } from "../../store";
+import { useAuthStore, useCashSystemStore } from "../../store";
 import { supabase } from "../../supabase";
 import { Alert, BackHandler } from "react-native";
 import { useEffect } from "react";
@@ -12,6 +12,7 @@ export default function TabRootLayout() {
   const pathname = usePathname();
   const today = useCashSystemStore.use.today();
   const sales = useCashSystemStore.use.sales();
+  const setSession = useAuthStore.use.setSession();
   const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
   const setCurrentPaymentMethods =
     useCashSystemStore.use.setCurrentPaymentMethods();
@@ -110,6 +111,7 @@ export default function TabRootLayout() {
   const onPressRightIcon = () => {
     if (pathname === "/") {
       supabase.auth.signOut();
+      setSession(null);
       BackHandler.exitApp();
     }
   };

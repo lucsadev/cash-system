@@ -52,9 +52,7 @@ export const getMovementsOfTheDay = async (date: string) => {
     .single()
     .then((res) => res.data?.amount || 0);
 
-  const users = await getUsers().then((res) =>
-    res.map((user: ProfileType) => user.username)
-  );
+  const users = await getUsers();
 
   return {
     dayId,

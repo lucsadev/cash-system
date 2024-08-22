@@ -56,6 +56,6 @@ export const globalStyles = StyleSheet.create({
     divider : {
         width: "100%",
         height: 1,
-        backgroundColor: "#000",        
+        backgroundColor: "#ccc",        
     }
   });

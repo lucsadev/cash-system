@@ -25,7 +25,8 @@ const authStore = create<State & Actions>()((set, get) => ({
   ...INITIAL_STATE,
 
   setSession: (session: Session | null) => {
-    set({ isAuthenticated: !!session, session });    
+    set({ isAuthenticated: !!session, session });
+    !!session && set({ profile:null });
   },
   setProfile: (profile: ProfileType | null) => {
     set({ profile });
