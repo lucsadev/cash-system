@@ -36,14 +36,3 @@ export const handleDelete = (user: ProfileType, users: ProfileType[]) => {
     Alert.alert("Error", error?.message || error, [{ text: "Aceptar" }]);
   }
 };
-
-export const handleSaveEdit = async ({ id, username, role }: ProfileType) => {
-  
-    const { error } = await supabase
-      .from("profiles")
-      .update({ username, role })
-      .eq("id", id);
-   
-    
-    return {error}
-};

@@ -1,19 +1,13 @@
 import { Text, View, StyleSheet } from "react-native";
-import { useForm, Controller } from "react-hook-form";
 import {
   Button,
   SegmentedButtons,
   TextInput,
   useTheme,
 } from "react-native-paper";
-import { useEffect, useRef, useState } from "react";
-import { useAuthStore, useCashSystemStore } from "../store";
-import { router } from "expo-router";
-import { getMovementsOfTheDay, register } from "../supabase/db";
-import { login } from "../supabase/db";
-import { useToast } from "react-native-toast-notifications";
-import { msgErrors } from "../constants";
-import { handleSaveEdit } from "./UsersList/events";
+import { useRef, useState } from "react";
+import { Controller } from "react-hook-form";
+import { useCustomForm } from "../hooks";
 
 type Props = {
   isLogin?: boolean;
@@ -21,87 +15,19 @@ type Props = {
 
 export const UserInputForm = ({ isLogin = false }: Props) => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [role, setRole] = useState("OPERATOR");
-  const setSession = useAuthStore.use.setSession();
-  const setProfile = useAuthStore.use.setProfile();
-  const today = useCashSystemStore.use.today();
-  const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
-  const editUser = useCashSystemStore.use.editUser();
-  const setEditUser = useCashSystemStore.use.setEditUser();
-  const theme = useTheme();
-  const toast = useToast();
-
   const passwordRef = useRef(null);
+  const theme = useTheme();
+
   const {
     control,
-    handleSubmit,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-  });
-
-  useEffect(() => {
-    if (editUser) {
-      setRole(editUser.role);
-      setValue("username", editUser.username);
-    }
-  }, [editUser]);
-
-  const userRegister = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
-    const { error } = await register({ username, password, role });
-
-    error
-      ? toast.show(
-          `Error: ${msgErrors[error.message as keyof typeof msgErrors]}`,
-          { type: "danger" }
-        )
-      : toast.show("Usuario registrado", { type: "success" });
-  };
-
-  const userLogin = async (data: { username: string; password: string }) => {
-    try {
-      const { session, profile, error } = await login(data);
-
-      if (error) throw error;
-
-      setSession(session);
-      setProfile(profile);
-      getMovementsOfTheDay(today).then(setMovementsOfTheDay);
-      router.push("/(tabs)");
-    } catch (error: any) {
-      toast.show(msgErrors[error.message as keyof typeof msgErrors], {
-        type: "danger",
-      });
-    }
-  };
-
-  const onCancelEdit = () => {
-    setEditUser(null);
-    setValue("username", "");
-    setRole("OPERATOR");
-  };
-
-  const onSaveEdit = async (username: string) => {
-    const { error } = await handleSaveEdit({ id: editUser?.id!, username, role });
-
-    if (!error) {
-      toast.show("Usuario actualizado", { type: "success" });
-      onCancelEdit();
-    } else toast.show(error.message, { type: "danger" });
-  };
-
-  const onSubmit = (data: { username: string; password: string }) =>
-    isLogin ? userLogin(data) : editUser ? onSaveEdit(data.username) : userRegister(data);
+    editUser,
+    errors,
+    isSubmitting,
+    onCancelEdit,
+    onSubmit,
+    role,
+    setRole,
+  } = useCustomForm(isLogin);
 
   return (
     <View>
@@ -151,7 +77,7 @@ export const UserInputForm = ({ isLogin = false }: Props) => {
                 style={{ marginBottom: !!errors.password ? 0 : 15 }}
                 secureTextEntry={secureTextEntry}
                 returnKeyType="done"
-                onSubmitEditing={handleSubmit(onSubmit)}
+                onSubmitEditing={onSubmit}
                 left={<TextInput.Icon icon="account-key" />}
                 right={
                   <TextInput.Icon
@@ -201,7 +127,7 @@ export const UserInputForm = ({ isLogin = false }: Props) => {
         buttonColor={editUser ? "#164e63" : theme.colors.primary}
         textColor={theme.colors.onPrimary}
         mode="elevated"
-        onPress={handleSubmit(onSubmit)}
+        onPress={onSubmit}
         style={{ borderRadius: 5 }}
         labelStyle={{ fontSize: 18 }}
         contentStyle={{ height: 45 }}
