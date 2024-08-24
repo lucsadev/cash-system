@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { OperationDetail } from "../types/data";
+import { IOperationDetail } from "../types/data";
 import { getMovementsOfTheMonth } from "../supabase/db";
 
 export function useMovementsPerMonth(date: string) {
   const [loading, setLoading] = useState(true);
-  const [salesOfTheMonth, setSalesOfTheMonth] = useState<OperationDetail[]>([]);
+  const [salesOfTheMonth, setSalesOfTheMonth] = useState<IOperationDetail[]>([]);
   const [purchasesOfTheMonth, setPurchasesOfTheMonth] = useState<
-    OperationDetail[]
+    IOperationDetail[]
   >([]);
 
   useEffect(() => {

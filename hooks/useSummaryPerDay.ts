@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 import { getMovementsOfTheDay } from "../supabase/db";
 import { OperationDetailModel } from "../mappers";
-import { OperationDetail } from "../types/data";
+import { IOperationDetail } from "../types/data";
 
 export function useSummaryPerDay(date: string) {
   const [loading, setLoading] = useState(true);
-  const [sales, setSales] = useState<OperationDetail[]>([]);
-  const [purchases, setPurchases] = useState<OperationDetail[]>([]);
+  const [sales, setSales] = useState<IOperationDetail[]>([]);
+  const [purchases, setPurchases] = useState<IOperationDetail[]>([]);
 
 
   useEffect(() => {

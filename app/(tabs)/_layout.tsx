@@ -1,21 +1,25 @@
-import { router, Slot, Tabs, usePathname } from "expo-router";
+import { router, Slot, Tabs } from "expo-router";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { itemsTab, PaymentMethods } from "../../constants";
 import { useAuthStore, useCashSystemStore } from "../../store";
 import { supabase } from "../../supabase";
-import { Alert, BackHandler } from "react-native";
+import { Alert, BackHandler} from "react-native";
 import { useEffect } from "react";
 import { getMovementsOfTheDay } from "../../supabase/db";
 import { HeaderTitle } from "../../components";
 
+export const unstable_settings = {
+  initialRouteName: "home",
+};
+
 export default function TabRootLayout() {
-  const pathname = usePathname();
   const today = useCashSystemStore.use.today();
   const sales = useCashSystemStore.use.sales();
   const setSession = useAuthStore.use.setSession();
   const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
   const setCurrentPaymentMethods =
     useCashSystemStore.use.setCurrentPaymentMethods();
+
 
   useEffect(() => {
     const channel = supabase
@@ -103,39 +107,6 @@ export default function TabRootLayout() {
       .subscribe();
   }, [today]);
 
-  const onPressLeftIcon = () => {
-    setCurrentPaymentMethods(PaymentMethods.CHANGE_IN_BOX);
-    router.navigate("/salesAmountScreen");
-  };
-
-  const onPressRightIcon = () => {
-    if (pathname === "/") {
-      supabase.auth.signOut();
-      setSession(null);
-      BackHandler.exitApp();
-    }
-  };
-
-  const iconLeft = () => (
-    <Icon
-      name={pathname === "/" ? "cash-register" : ("" as any)}
-      size={32}
-      color="black"
-      style={{ marginLeft: 10 }}
-      onPress={onPressLeftIcon}
-    />
-  );
-
-  const iconRight = () => (
-    <Icon
-      name={pathname === "/" ? "exit-run" : ("" as any)}
-      size={32}
-      color="#b30000ce"
-      style={{ marginRight: 10 }}
-      onPress={onPressRightIcon}
-    />
-  );
-
   return (
     <Tabs
       screenOptions={{
@@ -146,6 +117,13 @@ export default function TabRootLayout() {
         },
       }}
     >
+      <Tabs.Screen
+        name="index"
+        options={{
+          href: null,
+        }}
+      />
+
       {itemsTab.map((item) => (
         <Tabs.Screen
           key={item.name}
@@ -163,8 +141,6 @@ export default function TabRootLayout() {
                 ? sales?.length
                 : undefined,
             tabBarBadgeStyle: { backgroundColor: "#ef4444cc" },
-            headerLeft: iconLeft,
-            headerRight: iconRight,
           }}
         />
       ))}

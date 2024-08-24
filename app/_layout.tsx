@@ -1,29 +1,25 @@
 import { Stack } from "expo-router/stack";
 import { PaperProvider } from "react-native-paper";
 import { ToastProvider } from "react-native-toast-notifications";
-import { usePathname } from "expo-router";
-/* import { useEffect } from "react";
-import { supabase } from "../supabase";
-import { useAuthStore } from "../store";
-import type { ProfileType } from "../types/db"; */
+import { addEventListener, useNetInfo } from "@react-native-community/netinfo";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { theme } from "../theme";
+import { Text, View } from "react-native";
 
 export { ErrorBoundary } from "expo-router";
 
 export default function RootLayout() {
-  const pathname = usePathname();
-/*   const setSession = useAuthStore.use.setSession();
-  const setProfile = useAuthStore.use.setProfile();
+  const { isConnected } = useNetInfo();  
 
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log({event, session});
-      
-      setSession(session);
-      setProfile(session ? (session.user?.user_metadata as ProfileType) : null);
-    });
-  }, []);
- */
+    if (!isConnected) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Icon name="wifi-strength-alert-outline" size={32} color="red" />
+        <Text style={{ textAlign: "center", fontSize: 28, fontWeight: "bold",color: "red" }}>No hay red</Text>
+      </View>   
+    );
+  }
+
 
   return (
     <PaperProvider theme={theme}>
@@ -38,13 +34,12 @@ export default function RootLayout() {
       >
         <Stack
           screenOptions={{
-            headerShown: pathname !== "/salesAmountScreen" ? false : true,
+            headerShown: false,
             headerTitleAlign: "center",
           }}
         >
           <Stack.Screen name="authScreen" />
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="salesAmountScreen" />
         </Stack>
       </ToastProvider>
     </PaperProvider>

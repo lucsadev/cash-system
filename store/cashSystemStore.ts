@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from 'zustand/middleware'
 
 import { createSelectors } from "./createSelectors";
 import { PaymentMethods } from "../constants";
@@ -6,6 +7,7 @@ import type {
   CashWithdrawalsType,
   ProfileType,
   PurchasesType,
+  QuickDescriptionType,
   SalesType,
 } from "../types/db";
 
@@ -16,7 +18,8 @@ interface IDay {
   sales: SalesType[];
   purchases: PurchasesType[];
   cashWithdrawals: CashWithdrawalsType[];
-  users :ProfileType[]
+  users :ProfileType[];
+  quickDescriptions: QuickDescriptionType[];
 }
 
 interface State extends IDay {
@@ -29,6 +32,8 @@ interface Actions {
   setCurrentPaymentMethods: (CurrentPaymentMethods: PaymentMethods) => void;
   setMovementsOfTheDay: (dataDay: IDay) => void;
   setEditUser: (editUser: ProfileType | null) => void;
+  setQuickDescription: (quickDescription: QuickDescriptionType) => void
+  deleteQuickDescription: (id: string) => void
 }
 
 const INITIAL_STATE: State = {
@@ -39,6 +44,7 @@ const INITIAL_STATE: State = {
   purchases: [],
   cashWithdrawals: [],
   users :[],
+  quickDescriptions: [],
   editUser: null,
   today: new Date()
     .toLocaleDateString("es-AR", {
@@ -50,7 +56,7 @@ const INITIAL_STATE: State = {
   CurrentPaymentMethods: PaymentMethods.CASH,
 };
 
-const cashSystemStoreBase = create<State & Actions>()((set, get) => ({
+const cashSystemStoreBase = create<State & Actions>()(devtools((set, get) => ({
   ...INITIAL_STATE,
 
   setCurrentPaymentMethods: (CurrentPaymentMethods: PaymentMethods) =>
@@ -59,6 +65,13 @@ const cashSystemStoreBase = create<State & Actions>()((set, get) => ({
   setMovementsOfTheDay: (dataDay: IDay) => set({ ...dataDay }),
 
   setEditUser: (editUser: ProfileType | null) => set({ editUser }),
-}));
+
+  setQuickDescription: (quickDescription: QuickDescriptionType) => set({ quickDescriptions: [...get().quickDescriptions, quickDescription] }),
+
+  deleteQuickDescription: (id: string) => {
+    set({ quickDescriptions: get().quickDescriptions.filter(quickDescription => quickDescription.id !== id) })
+  },
+  
+})));
 
 export const useCashSystemStore = createSelectors(cashSystemStoreBase);

@@ -2,11 +2,11 @@ import { View, Text, StyleSheet } from "react-native";
 import { useCashSystemStore } from "../store";
 import { total } from "../lib/totals";
 import { formatPrice } from "../lib";
-import { OperationDetail } from "../types/data";
+import { IOperationDetail } from "../types/data";
 
 type Props = {
-  sales?: OperationDetail[] | null;
-  purchases?: OperationDetail[] | null;
+  sales?: IOperationDetail[] | null;
+  purchases?: IOperationDetail[] | null;
 };
 
 export function DifferencePurchaseSaleOfTheDay({

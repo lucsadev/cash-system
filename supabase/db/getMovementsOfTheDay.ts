@@ -4,6 +4,7 @@ import type {
   MovementsOfTheDayType,
   ProfileType,
   PurchasesType,
+  QuickDescriptionType,
   SalesType,
 } from "../../types/db";
 import { getUsers } from "./getUser";
@@ -54,6 +55,10 @@ export const getMovementsOfTheDay = async (date: string) => {
 
   const users = await getUsers();
 
+  const quickDescriptions = await supabase
+    .from("quickDescription")
+    .select("*").then((res) => res.data) as QuickDescriptionType[];
+
   return {
     dayId,
     cashChange,
@@ -62,5 +67,6 @@ export const getMovementsOfTheDay = async (date: string) => {
     cashAvailable,
     cashWithdrawals,
     users,
+    quickDescriptions,
   };
 };

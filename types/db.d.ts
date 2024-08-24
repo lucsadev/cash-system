@@ -3,6 +3,9 @@ import { Tables } from "./database.types";
 let profile: Tables<"profiles">;
 export type ProfileType = typeof profile;
 
+let quickDescription: Tables<"quickDescription">;
+export type QuickDescriptionType = typeof quickDescription;
+
 
 export interface CashWithdrawalsType {
   amount: number | null;

@@ -1,9 +1,9 @@
 export const itemsTab = [
   {
-    name: "index",
+    name: "home",
     title: "Ventas",
     icon: "alarm-panel",
-    headerShown: true,
+    headerShown: false,
   },
   {
     name: "listSales",

@@ -33,7 +33,7 @@ const pathname = usePathname();
         options={{
           headerTitle: () => <HeaderTitle title={"Listado de Pagos"} />,          
         }}
-      />
+      />     
     </Stack>
   );
 }

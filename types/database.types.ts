@@ -9,6 +9,29 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      cashAvailable: {
+        Row: {
+          amount: number
+          id: string
+        }
+        Insert: {
+          amount?: number
+          id: string
+        }
+        Update: {
+          amount?: number
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cashAvailable_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "movementsOfTheDay"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cashWithdrawals: {
         Row: {
           amount: number
@@ -40,6 +63,13 @@ export type Database = {
             columns: ["day"]
             isOneToOne: false
             referencedRelation: "movementsOfTheDay"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cashWithdrawals_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -124,7 +154,29 @@ export type Database = {
             referencedRelation: "movementsOfTheDay"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "purchases_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      quickDescription: {
+        Row: {
+          description: string
+          id: string          
+        }
+        Insert: {
+          description: string
+          id?: string
+        }
+        Update: {
+          description?: string
+          id?: string
+        }
+        Relationships: []
       }
       sales: {
         Row: {

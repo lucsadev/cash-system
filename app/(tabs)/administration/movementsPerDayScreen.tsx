@@ -20,8 +20,8 @@ export default function MovementsPerDayScreen() {
   const users = useCashSystemStore.use.users().map((user) => user.username);
   const { loading, sales, purchases } = useSummaryPerDay(formatShortDate(day));
   const dataUsers = [
-    { label: "Todos", value: "Todos" },
-    ...users.map((user) => ({ label: user, value: user })),
+    { label: "TODOS", value: "Todos" },
+    ...users.map((user) => ({ label: user.toUpperCase(), value: user })),
   ];
 
   if (loading) return <ScreenLoader />;

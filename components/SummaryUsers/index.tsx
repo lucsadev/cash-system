@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import type { OperationDetail } from "../../types/data";
+import type { IOperationDetail } from "../../types/data";
 import { totals } from "../../lib/totals";
 import { useCashSystemStore } from "../../store";
 import { UserSummaryCard } from "./UserSummaryCard";
@@ -22,18 +22,18 @@ type SummaryUsersType = {
 };
 
 type Props = {
-  salesOfTheMonth: OperationDetail[];
+  salesOfTheMonth: IOperationDetail[];
 };
 
 export function SummaryUsers({ salesOfTheMonth }: Props) {
   const [usersSummary, setUsersSummary] = useState<SummaryUsersType>();
   const users = useCashSystemStore.use.users();
-
+  
   useEffect(() => {
     users.forEach((user) => {
       setUsersSummary((prev) => ({
         ...prev,
-        [user as any]: totals(
+        [user.username as any]: totals(
           salesOfTheMonth.filter((el) => el.profiles.username === user.username)
         ),
       }));

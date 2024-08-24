@@ -1,13 +1,12 @@
-import { KEYS, PaymentMethods } from "../constants";
-import { useAuthStore } from "../store";
-import { useCashSystemStore } from "../store/cashSystemStore";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { globalStyles } from "../theme/globalStyles";
-import { supabase } from "../supabase";
 import { useToast } from "react-native-toast-notifications";
-import { HeaderTitle } from "../components";
+import { HeaderTitle } from "../../../components";
+import { PaymentMethods, KEYS } from "../../../constants";
+import { useAuthStore, useCashSystemStore } from "../../../store";
+import { supabase } from "../../../supabase";
+import { globalStyles } from "../../../theme/globalStyles";
 
 const {
   button,

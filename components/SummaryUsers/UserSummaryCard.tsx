@@ -11,6 +11,7 @@ type Props = {
 };
 
 export function UserSummaryCard({ user, summary }: Props) {
+  
   return (
     <Card mode="elevated" style={{ marginBottom: 10 }}>
       <Card.Title title={user} titleStyle={styles.title} />
