@@ -23,10 +23,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "red",
+    textTransform: "capitalize",
   },
   label: {
     fontSize: 16,
     fontWeight: "bold",
     color: "black",
+    textTransform: "capitalize",
   },
 });

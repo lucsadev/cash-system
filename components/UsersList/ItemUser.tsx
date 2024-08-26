@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import type { ProfileType } from "../../types/db";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { handleDelete } from "./events";
 import { useCashSystemStore } from "../../store";
+import { deleteUser } from "../../functions";
 
 type Props = {
   item: ProfileType;
@@ -31,7 +31,7 @@ export function ItemUser({ item }: Props) {
           name="account-remove"
           size={24}
           color="red"
-          onPress={() => handleDelete(item, users)}
+          onPress={() => deleteUser(item, users)}
         />
       </View>
     </View>

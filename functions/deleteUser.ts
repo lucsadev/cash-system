@@ -1,8 +1,8 @@
 import { Alert } from "react-native";
-import type { ProfileType } from "../../types/db";
-import { supabase } from "../../supabase";
+import type { ProfileType } from "../types/db";
+import { supabase } from "../supabase";
 
-export const handleDelete = (user: ProfileType, users: ProfileType[]) => {
+export const deleteUser = (user: ProfileType, users: ProfileType[]) => {
   try {
     const usersAdmin = users?.filter((el) => el.role === "ADMIN");
     if (usersAdmin.length > 1 || user.role !== "ADMIN") {
