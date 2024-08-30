@@ -1,7 +1,6 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import { useCashSystemStore } from "../../store";
 import HeaderList from "./HeaderList";
-import { globalStyles } from "../../theme/globalStyles";
 import { ItemUser } from "./ItemUser";
 
 export function UsersList() {
@@ -12,9 +11,9 @@ export function UsersList() {
       <HeaderList />
       <FlatList
         data={users}
-        renderItem={({ item }) => <ItemUser item={item} />}        
+        renderItem={({ item }) => <ItemUser item={item} />}
         //@ts-ignore
-        ItemSeparatorComponent={<View style={globalStyles.divider} />}
+        ItemSeparatorComponent={<View style={styles.divider} />}
         keyExtractor={(item) => item.id}
       />
     </View>
@@ -30,5 +29,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: "hidden",
     marginVertical: 30,
+  },
+  divider: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "#ccc",
   },
 });

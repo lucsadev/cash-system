@@ -1,29 +1,30 @@
 import { StyleSheet } from "react-native";
+import { isTablet } from "../../constants";
 
-export const globalStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#d4d4d8",
     backgroundColor: "#fff",
     margin: 1,
-    width: "23%",
-    height: 100,
+    width: "23.5%",
+    height: "23.5%",
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",
   },
   buttonContainer: {
     width: "100%",
+    height: "60%",
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
   },
   displayContainer: {
-    width: "96%",
-    marginHorizontal: "auto",
-    height: 70,
+    width: "94%",
+    height: isTablet ? 100 : 70,
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: "#d4d4d8",
@@ -36,21 +37,20 @@ export const globalStyles = StyleSheet.create({
   displayText: {
     textAlign: "right",
     padding: 10,
-    fontSize: 40,
+    fontSize: isTablet ? 60 : 40,
     fontWeight: "400",
     color: "#000",
   },
   pageContainer: {
     flex: 1,
-    width: "94%",
-    marginHorizontal: "auto",
-    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    rowGap: 10,    
   },
-  text: {
-    fontSize: 40,
+  buttonText: {
+    fontSize: isTablet ? 70 : 40,
     color: "black",
-    fontWeight: "500",
-    letterSpacing: 0.3,
+    fontWeight: "bold",
     textAlign: "center",
   },
   divider: {
@@ -58,4 +58,24 @@ export const globalStyles = StyleSheet.create({
     height: 1,
     backgroundColor: "#ccc",
   },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    gap: 20,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    width: "80%",    
+    shadowColor: '#000',
+    elevation: 3
+  },
+  image: {
+    width: isTablet ? 110 : 70,
+    height: isTablet ? 120 : 80
+  },
+  text: {
+    fontSize: isTablet ? 40 : 20,
+    fontWeight: '300',
+    letterSpacing: 0.3
+  }
 });

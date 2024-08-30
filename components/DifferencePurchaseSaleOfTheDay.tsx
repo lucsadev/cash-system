@@ -3,6 +3,7 @@ import { useCashSystemStore } from "../store";
 import { total } from "../lib/totals";
 import { formatPrice } from "../lib";
 import { IOperationDetail } from "../types/data";
+import { isTablet } from "../constants";
 
 type Props = {
   sales?: IOperationDetail[] | null;
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   text: {
-    fontSize: 16,
+    fontSize: isTablet ? 28 : 16,
     fontWeight: "bold",
     paddingVertical: 10,
   },

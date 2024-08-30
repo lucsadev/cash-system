@@ -1,9 +1,9 @@
 import { router, Slot, Tabs } from "expo-router";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { itemsTab, PaymentMethods } from "../../constants";
+import { isTablet, itemsTab, PaymentMethods } from "../../constants";
 import { useAuthStore, useCashSystemStore } from "../../store";
 import { supabase } from "../../supabase";
-import { Alert, BackHandler} from "react-native";
+import { Alert, BackHandler } from "react-native";
 import { useEffect } from "react";
 import { getMovementsOfTheDay } from "../../supabase/db";
 import { HeaderTitle } from "../../components";
@@ -19,7 +19,6 @@ export default function TabRootLayout() {
   const setMovementsOfTheDay = useCashSystemStore.use.setMovementsOfTheDay();
   const setCurrentPaymentMethods =
     useCashSystemStore.use.setCurrentPaymentMethods();
-
 
   useEffect(() => {
     const channel = supabase
@@ -114,6 +113,7 @@ export default function TabRootLayout() {
         headerStyle: {
           elevation: 10,
           shadowColor: "black",
+          height: isTablet ? 120 : 100,
         },
       }}
     >
@@ -133,14 +133,24 @@ export default function TabRootLayout() {
             headerTitle: () => <HeaderTitle title={item.title} />,
             headerTitleAlign: "center",
             tabBarLabel: item.title,
+            tabBarHideOnKeyboard: true,
+            tabBarStyle: { height: isTablet ? 80 : 50 },
+            tabBarLabelPosition: "below-icon",
+            tabBarLabelStyle: { fontSize: isTablet ? 20 : 10 },
             tabBarIcon: ({ color }) => (
-              <Icon name={item.icon as any} size={24} color={color} />
+              <Icon
+                name={item.icon as any}
+                size={isTablet ? 32 : 24}
+                color={color}
+              />
             ),
             tabBarBadge:
               item.name === "listSales" && sales?.length
                 ? sales?.length
                 : undefined,
-            tabBarBadgeStyle: { backgroundColor: "#ef4444cc" },
+            tabBarBadgeStyle: {
+              backgroundColor: "#ef4444cc",
+            },
           }}
         />
       ))}

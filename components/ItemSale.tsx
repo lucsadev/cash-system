@@ -1,9 +1,16 @@
-import { Alert, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Alert,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { formatPrice } from "../lib/formatPrice";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { supabase } from "../supabase";
 import { SalesType } from "../types/db";
-import { typeOfPayment } from "../constants";
+import { isTablet, typeOfPayment } from "../constants";
 
 const handleDelete = (sale: string) => {
   try {
@@ -27,21 +34,23 @@ const handleDelete = (sale: string) => {
   }
 };
 
-export const ItemSale = ({ item , role }: { item: SalesType, role: string }) => {
+export const ItemSale = ({ item, role }: { item: SalesType; role: string }) => {
   return (
     <View style={styles.container}>
-    <View style={{width: '18%', alignItems: 'center'}}>
-      <Image            
-        resizeMode="contain"
-        source={{
-          uri: typeOfPayment[item.typeOfPayment as keyof typeof typeOfPayment],
-        }}       
-        style={styles.image}
+      <View style={styles.imageContainer}>
+        <Image
+          resizeMode="contain"
+          source={{
+            uri: typeOfPayment[
+              item.typeOfPayment as keyof typeof typeOfPayment
+            ],
+          }}
+          style={styles.image}
         />
-        </View>
-      <Text style={{width: '18%', textAlign: 'center'}}>{item.profiles?.username}</Text>
-      <Text style={{width: '30%', textAlign: 'right'}}>{formatPrice(item.amount!)}</Text>
-      <Text style={{width: '18%', textAlign: 'center'}}>
+      </View>
+      <Text style={styles.text}>{item.profiles?.username}</Text>
+      <Text style={styles.amount}>{formatPrice(item.amount!)}</Text>
+      <Text style={styles.text}>
         {new Date(item.created_at as string).toLocaleTimeString("es-AR", {
           hour: "2-digit",
           minute: "2-digit",
@@ -49,8 +58,11 @@ export const ItemSale = ({ item , role }: { item: SalesType, role: string }) => 
         })}
       </Text>
       {role === "ADMIN" && (
-        <TouchableOpacity onPress={() => handleDelete(item.id)} style={{width: '18%', alignItems: 'center'}}>
-          <Icon name="trash-can-outline" size={20} color='red' />
+        <TouchableOpacity
+          onPress={() => handleDelete(item.id)}
+          style={{ width: isTablet ? 130 : 70, alignItems: "center" }}
+        >
+          <Icon name="trash-can-outline" size={isTablet ? 32 : 20} color="red" />
         </TouchableOpacity>
       )}
     </View>
@@ -61,12 +73,20 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-/*     justifyContent: "space-between",
-    paddingLeft: 10,
-    paddingRight: 5, */
   },
+  imageContainer: { width: isTablet ? 130 : 70, alignItems: "center" },
   image: {
-    width: 30,
-    height: 40,
-  }
-})
+    width: isTablet ? 50 : 30,
+    height: isTablet ? 60 : 40,
+  },
+  text: {
+    width: isTablet ? 130 : 70,
+    textAlign: "center",
+    fontSize: isTablet ? 24 : 12,
+  },
+  amount: {
+    width: isTablet ? 300 : 150,
+    textAlign: "right",
+    fontSize: isTablet ? 24 : 12,
+  },
+});

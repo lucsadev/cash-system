@@ -13,7 +13,7 @@ export function CashWithdrawalsList() {
       <Text style={styles.title}>Listado de retiros</Text>
       <ScrollView>
         {cashWithdrawals.map((item: CashWithdrawalsType) => (
-          <View key={item.id} style={{ width: "100%", padding: 10 }}>
+          <View key={item.id} style={{ padding: 10 }}>
             <Card mode="elevated">
               <Card.Content>
                 <DetailRow label="Descripción" value={item.description!} />
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginBottom: 10,
-    width: "100%",
     backgroundColor: "#ffffff",
     paddingVertical: 10,
     elevation: 3,

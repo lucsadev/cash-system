@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import { isTablet } from "../../constants";
 
-export default StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     padding: 8,
     borderBottomWidth: 1,
@@ -15,7 +16,7 @@ export default StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: isTablet ? 28 : 18,
     color: "#0e7490",
     textAlign: "center",
     marginBottom: 5,
@@ -31,12 +32,17 @@ export default StyleSheet.create({
   containerRow: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 5,
+    height: 30,
+    paddingHorizontal: 5,
   },
   rowTotals: {
-    fontSize: 16,
+    fontSize: isTablet ? 24 : 16,
     textAlign: "center",
     color: "#0d9488",
     fontWeight: "bold",
+  },
+  text: {
+    fontSize: isTablet ? 20 : 14,
+    textAlign: "center",
   },
 });

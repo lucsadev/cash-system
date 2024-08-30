@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cash-system-app",
+    "name": "Sistema de caja",
     "slug": "cash-system-app",
     "scheme": "cash-system",
     "version": "1.0.0",
@@ -19,11 +19,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.luc76.cashsystemapp"
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro"      
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router",
@@ -33,6 +37,14 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "66e51f88-0408-4b27-8d7e-feaffed873e3"
+      }
+    }
   }
 }

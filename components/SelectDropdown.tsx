@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import { isTablet } from "../constants";
 
 type dataType = { label: string; value: string };
 
@@ -43,7 +44,6 @@ export function SelectDropdown({
         activeColor="#0f766e60"
         data={data}
         placeholder=""
-        maxHeight={350}
         labelField="label"
         valueField="value"
         value={selected}
@@ -54,7 +54,7 @@ export function SelectDropdown({
           <Icon name={leftIcon as any} size={24} color="#0f766e80" />
         )}
         renderRightIcon={() => (
-          <Icon name={rightIcon as any} size={24} color="#0f766e80" />
+          <Icon name={rightIcon as any} size={isTablet ? 36 : 24} color="#0f766e80" />
         )}
       />
     </View>
@@ -66,10 +66,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: "hidden",
     borderWidth: 1,
+    minHeight: isTablet ? 500 : 340,
   },
   dropdown: {
-    height: 30,
-    width: 130,
+    height: isTablet ? 50 : 30,
+    width: isTablet ? 250 : 150,
     borderBottomWidth: 1,
     borderBottomColor: "gray",
     backgroundColor: "white",
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   label: {
-    fontSize: 16,
+    fontSize: isTablet ? 20 : 16,
     fontWeight: "bold",
     marginBottom: 1,
   },
@@ -91,16 +92,17 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontWeight: "bold",
+    fontSize: isTablet ? 26 : 14,
   },
   iconStyle: {
-    width: 20,
-    height: 20,
+    width: isTablet ? 36 : 20,
+    height: isTablet ? 36 : 20,
   },
   item: {
     padding: 4,
     alignItems: "center",
   },
   textItem: {
-    fontSize: 14,
+    fontSize: isTablet ? 24 : 14,
   },
 });

@@ -5,8 +5,11 @@ import { addEventListener, useNetInfo } from "@react-native-community/netinfo";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { theme } from "../theme";
 import { Text, View } from "react-native";
+import * as SplashScreen from 'expo-splash-screen';
 
 export { ErrorBoundary } from "expo-router";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { isConnected } = useNetInfo();  

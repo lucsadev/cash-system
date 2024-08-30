@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
-import { PurchasesType } from "../types/db";
+import { PurchasesType } from "../../types/db";
 import { Card } from "react-native-paper";
-import { formatPrice } from "../lib";
-import { PaymentMethods } from "../constants";
+import { formatPrice } from "../../lib";
+import { isTablet, PaymentMethods } from "../../constants";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { supabase } from "../supabase";
-import { DetailRow } from "./DetailRow";
+import { supabase } from "../../supabase";
+import { DetailRow } from "../DetailRow";
 
 const handleDelete = (id: string) => {
   try {
@@ -37,7 +37,7 @@ export function PaymentsToSuppliersCard({ payment, role }: Props) {
   return (
     <View style={styles.container}>
       <Card mode="elevated">
-        <Card.Content style={styles.content}>
+        <Card.Content>
           <View>
             <DetailRow label="Descripción" value={payment.description!} />
             <DetailRow label="Importe" value={formatPrice(payment.amount!)} />
@@ -63,7 +63,7 @@ export function PaymentsToSuppliersCard({ payment, role }: Props) {
             />
           </View>
           {role === "ADMIN" && (
-            <View>
+            <View style={styles.trash}>
               <Icon
                 name="trash-can-outline"
                 size={32}
@@ -80,12 +80,13 @@ export function PaymentsToSuppliersCard({ payment, role }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    position: "relative",
     padding: 10,
+    width: isTablet ? 390 : "100%",
   },
-  content: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+  trash: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
   },
 });

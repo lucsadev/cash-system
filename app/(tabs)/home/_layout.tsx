@@ -2,7 +2,7 @@ import { router, Stack } from "expo-router";
 import { HeaderTitle } from "../../../components";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useAuthStore, useCashSystemStore } from "../../../store";
-import { PaymentMethods } from "../../../constants";
+import { isTablet, PaymentMethods } from "../../../constants";
 import { supabase } from "../../../supabase";
 import { BackHandler } from "react-native";
 
@@ -25,7 +25,7 @@ export default function _layout() {
   const iconLeft = () => (
     <Icon
       name="cash-register"
-      size={32}
+      size={isTablet ? 52 : 32}
       color="black"
       style={{ marginLeft: 10 }}
       onPress={onPressLeftIcon}
@@ -35,7 +35,7 @@ export default function _layout() {
   const iconRight = () => (
     <Icon
       name="exit-run"
-      size={32}
+      size={isTablet ? 48 : 32}
       color="#b30000ce"
       style={{ marginRight: 10 }}
       onPress={onPressRightIcon}

@@ -26,8 +26,8 @@ export function useCustomForm(isLogin: boolean) {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      username: "admin",
-      password: "123456",
+      username: "",
+      password: "",
     },
   });
 

@@ -23,7 +23,6 @@
     "expo-router": "^3.5.21",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
     "react-hook-form": "^7.52.2",
     "react-native": "0.74.5",
     "react-native-element-dropdown": "^2.12.1",
@@ -33,7 +32,6 @@
     "react-native-screens": "3.31.1",
     "react-native-toast-notifications": "^3.4.0",
     "react-native-url-polyfill": "2.0.0",
-    "react-native-web": "~0.19.10",
     "zustand": "4.5.4"
   },
   "devDependencies": {

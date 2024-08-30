@@ -1,7 +1,6 @@
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
-import { itemsMenuAdmin } from "../../../constants";
+import { Text, View } from "react-native";
+import { AdministrationMenu } from "../../../components/AdministrationMenu";
 import { useAuthStore } from "../../../store";
-import { router } from "expo-router";
 
 export default function TabAdministration() {
   const profile = useAuthStore.use.profile();
@@ -15,54 +14,5 @@ export default function TabAdministration() {
       </View>
     );
 
-  return (
-    <View style={styles.container}>
-      {itemsMenuAdmin.map((item) => {
-        return (
-          <Pressable
-            key={item.name}
-            onPress={() =>  router.navigate('/administration/' + item.page)}
-            style={({ pressed }) => [
-              styles.card,
-              {
-                elevation: pressed ? 1 : 3,
-              },
-            ]}
-          >
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <Text style={styles.text}>{item.name}</Text>
-          </Pressable>
-        );
-      })}
-    </View>
-  );
+  return <AdministrationMenu />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-    marginTop: 20,
-    gap: 10,
-  },
-  card: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "48%",
-    height: 160,
-    shadowColor: "#000",
-    gap: 10,
-  },
-  image: {
-    width: "70%",
-    height: "70%",
-  },
-  text: {
-    fontSize: 14,
-  },
-});

@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import { isTablet } from "../constants";
 
 type Props = {
   label: string;
@@ -20,14 +21,12 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   value: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: isTablet ? 20 : 12,    
     color: "red",
     textTransform: "capitalize",
   },
   label: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: isTablet ? 20 : 12,    
     color: "black",
     textTransform: "capitalize",
   },

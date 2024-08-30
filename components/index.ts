@@ -7,7 +7,7 @@ export * from './FlatListHeaderSales';
 export * from './HeaderTitle';
 export * from './ItemSale';
 export * from './ModalQuickDescription/ModalQuickDescription';
-export * from './PaymentsToSuppliersCard';
+export * from './PaymentsToSuppliers/PaymentsToSuppliersCard';
 export * from './ScreenLoader';
 export * from './SelectDropdown';
 export * from './SummaryOfTotals/index';

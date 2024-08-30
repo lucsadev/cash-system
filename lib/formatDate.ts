@@ -6,7 +6,7 @@ export const formatLongDate = (date: string) => {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
-        //dateStyle: "full"        
+        dateStyle: "full"        
     });
 }
 

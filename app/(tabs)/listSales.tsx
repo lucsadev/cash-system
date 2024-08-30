@@ -1,6 +1,5 @@
 import { FlatList, Text, View } from "react-native";
 import { useAuthStore, useCashSystemStore } from "../../store";
-import { globalStyles } from "../../theme/globalStyles";
 import { FlatListHeaderSales, ItemSale } from "../../components";
 
 export default function TabListSales() {
@@ -16,7 +15,9 @@ export default function TabListSales() {
       keyExtractor={(item) => item.id}
       ListHeaderComponent={<FlatListHeaderSales />}
       //@ts-ignore
-      ItemSeparatorComponent={<View style={globalStyles.divider} />}
+      ItemSeparatorComponent={
+        <View style={{ width: "100%", height: 1, backgroundColor: "#ccc" }} />
+      }
     />
   );
 }

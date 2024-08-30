@@ -2,7 +2,8 @@ import { View, Text, StyleSheet } from "react-native";
 import { useCashSystemStore } from "../../store";
 import { SummaryType, total, totals } from "../../lib/totals";
 import { formatPrice } from "../../lib";
-import styles from "./styles";
+import { styles } from "./styles";
+import { isTablet } from "../../constants";
 
 type Props = {
   summary: string;
@@ -22,22 +23,23 @@ export function SummaryOfTotals({ summary, title, dataSummary = null }: Props) {
       <Text style={styles.title}>{title}</Text>
       <View style={styles.containerList}>
         <View style={styles.containerRowSubTitle}>
-          <Text style={{ width: "25%", textAlign: "center" }}>F.Pago</Text>
-          <Text style={{ width: "25%", textAlign: "center" }}>Cantidad</Text>
-          <Text style={{ width: "50%", textAlign: "center" }}>Importe</Text>
+          <Text style={[styles.text,{ width: "35%"}]}>F.Pago</Text>
+          <Text style={[styles.text,{ width: "18%"}]}>Cantidad</Text>
+          <Text style={[styles.text,{ width: "47%"}]}>Importe</Text>
         </View>
         {Object.keys(ObjetTotals).map((key) => (
           <View key={key} style={styles.containerRow}>
-            <Text style={{ width: "25%", textAlign: "left" }}>{key}</Text>
-            <Text style={{ width: "25%", textAlign: "center" }}>
+            <Text style={[styles.text,{ width: "35%", textAlign: "left" }]}>{key}</Text>
+            <Text style={[styles.text,{ width: "18%"}]}>
               {ObjetTotals[key].quantity}
             </Text>
             <Text
               style={{
-                width: "50%",
+                width: "47%",
                 textAlign: "right",
                 color: "#0d9488",
                 fontWeight: "bold",
+                fontSize: isTablet ? 20 : 14,
               }}
             >
               {formatPrice(ObjetTotals[key].amount)}
@@ -46,13 +48,13 @@ export function SummaryOfTotals({ summary, title, dataSummary = null }: Props) {
         ))}
       </View>
       <View style={styles.containerRow}>
-        <Text style={[styles.rowTotals, { width: "30%", textAlign: "left" }]}>
+        <Text style={[styles.rowTotals, { width: "38%", textAlign: "left" }]}>
           Total
         </Text>
-        <Text style={[styles.rowTotals, { width: "15%" }]}>
+        <Text style={[styles.rowTotals, { width: "12%" }]}>
           {totalsSumary.length}
         </Text>
-        <Text style={[styles.rowTotals, { width: "55%", textAlign: "right" }]}>
+        <Text style={[styles.rowTotals, { width: "50%", textAlign: "right" }]}>
           {formatPrice(total(totalsSumary))}
         </Text>
       </View>

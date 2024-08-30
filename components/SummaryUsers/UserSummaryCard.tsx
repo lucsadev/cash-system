@@ -4,6 +4,7 @@ import type { IOperationDetailByType } from "./index";
 import { Card } from "react-native-paper";
 import { formatPrice } from "../../lib";
 import { DetailRow } from "../DetailRow";
+import { isTablet } from "../../constants";
 
 type Props = {
   user: string;
@@ -21,7 +22,7 @@ export function UserSummaryCard({ user, summary }: Props) {
           <View style={styles.container}>
             <View style={styles.containerList}>
               {Object.entries(summary).map(([key, value]) => (
-                <DetailRow key={key} label={key} value={value.amount} />
+                <DetailRow key={key} label={key} value={formatPrice(value.amount)} />
               ))}
             </View>
             <View style={{width: "40%"}}>
@@ -46,10 +47,9 @@ const styles = StyleSheet.create({
   },
   containerList: {
     width: "60%",
-    padding: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: isTablet ? 24 : 16,
     color: "teal",
     fontWeight: "bold",
     textAlign: "center",
@@ -63,14 +63,13 @@ const styles = StyleSheet.create({
     color: "red",
   },
   subTitle: {
-    fontSize: 13,
+    fontSize: isTablet ? 20 : 12,
     color: "teal",
-    fontWeight: "bold",
     textAlign: "center",
     marginTop: 10,
   },
   totals: {
-    fontSize: 16,
+    fontSize: isTablet ? 26 : 16,
     marginVertical: 5,
     textAlign: "center",
   }

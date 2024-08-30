@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { formatLongDate } from '../lib'
 import { useCashSystemStore } from '../store';
+import { isTablet } from '../constants';
 
 type Props = {
     title: string
@@ -26,12 +27,12 @@ const styles = StyleSheet.create({
       justifyContent: "center",
     },
     title: {
-      fontSize: 24,
+      fontSize: isTablet ? 44 : 24,
       fontWeight: "bold",
       color: "teal",
     },
     subtitle: {
-      fontSize: 16,
+      fontSize: isTablet ? 24 : 16,
       fontWeight: "normal",
       marginBottom: 5,
     }
